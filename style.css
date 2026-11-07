@@ -1,0 +1,939 @@
+/* ==========================================================
+   style.css - SATU file CSS untuk seluruh website Cooking Class
+   Tema gelap emas (mengikuti branding Cuisine Palembang)
+   Dipakai oleh: index.php (login), home.php, profil.php, admin_page.php
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+    color-scheme: dark; /* kontrol bawaan browser (tanggal, dropdown, scrollbar) ikut gelap */
+
+    /* Emas */
+    --gold-light: #f6d77f;
+    --gold: #d4a63c;
+    --gold-dark: #a87a1f;
+    --gold-gradient: linear-gradient(135deg, #f6d77f 0%, #d4a63c 50%, #a87a1f 100%);
+
+    /* Warna utama */
+    --primary: #d4a63c;
+    --primary-dark: #a87a1f;
+    --on-primary: #1a1306;
+    --danger: #b3342f;
+    --danger-dark: #8e2824;
+
+    /* Latar dan teks */
+    --bg-from: #0a0a0a;
+    --bg-to: #1c1608;
+    --card-bg: #15120e;
+    --input-bg: #0e0c09;
+    --text: #f4ecd8;
+    --text-muted: #b8ad94;
+
+    /* Garis dan hover */
+    --border: rgba(212, 166, 60, .22);
+    --border-strong: rgba(212, 166, 60, .45);
+    --line: rgba(255, 255, 255, .08);
+    --hover: rgba(212, 166, 60, .12);
+
+    /* Pesan */
+    --success-bg: rgba(76, 175, 80, .15);
+    --success-text: #9be09f;
+    --error-bg: rgba(229, 83, 70, .15);
+    --error-text: #f4968c;
+
+    --shadow: 0 6px 24px rgba(0, 0, 0, .55);
+    --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --lebar-sidebar: 230px;
+}
+
+/* ==========================================================
+   DASAR
+   ========================================================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(160deg, var(--bg-from), var(--bg-to));
+    background-attachment: fixed;
+    color: var(--text);
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ==========================================================
+   LAYOUT DENGAN SIDEBAR
+   (.admin-layout / .admin-main dipertahankan agar admin_page.php
+   tetap jalan; .app-layout / .app-main untuk home dan profil)
+   ========================================================== */
+.app-layout,
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--lebar-sidebar);
+    flex-shrink: 0;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar-brand {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--gold-light);
+    margin: 0 0 4px 8px;
+}
+
+.sidebar-user {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 24px 8px;
+}
+
+/* Nama pengguna di atas sidebar (link ke profil / admin) */
+.sidebar-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.sidebar-profile:hover {
+    background: var(--hover);
+}
+
+.sidebar-profile.aktif {
+    border-color: var(--gold);
+}
+
+.sidebar-profile .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+}
+
+.sidebar-profile .nama {
+    font-size: 14.5px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.sidebar-profile .peran {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14.5px;
+}
+
+.sidebar nav a:hover {
+    background: var(--hover);
+}
+
+.sidebar nav a.active {
+    background: var(--gold-gradient);
+    color: var(--on-primary);
+    font-weight: bold;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+}
+
+/* Kolom kanan di samping sidebar: banner (opsional) lalu .app-main */
+.app-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.app-main,
+.admin-main {
+    flex: 1;
+    min-width: 0;
+    padding: 32px;
+    max-width: 1000px;
+}
+
+.admin-main h1,
+.app-main h1 {
+    font-size: 26px;
+    margin: 0 0 20px;
+}
+
+/* ==========================================================
+   BANNER (gambar saja, ukuran saran 1920x400)
+   ========================================================== */
+.banner {
+    display: block;
+    width: 100%;
+    height: clamp(140px, 21vw, 400px);
+    object-fit: cover;
+    border-bottom: 2px solid var(--gold);
+}
+
+.banner-preview {
+    display: block;
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+/* ==========================================================
+   HEADER HALAMAN
+   ========================================================== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    font-size: 30px;
+    margin: 0;
+    color: var(--gold-light);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .page-header h1,
+    .login-page h1 {
+        background: var(--gold-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+}
+
+.page-header p {
+    margin: 4px 0 0;
+    font-size: 14.5px;
+    color: var(--text-muted);
+}
+
+/* ---------- Avatar (dipakai di sidebar) ---------- */
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--gold-gradient);
+    color: var(--on-primary);
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ==========================================================
+   TOMBOL
+   ========================================================== */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 8px;
+    background: var(--gold-gradient);
+    color: var(--on-primary);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+}
+
+.btn:disabled {
+    background: #3a352b;
+    color: #8a8272;
+    cursor: not-allowed;
+    filter: none;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: var(--danger-dark);
+    filter: none;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    font-weight: normal;
+}
+
+.btn-outline:hover {
+    background: var(--hover);
+    filter: none;
+}
+
+.btn-small {
+    display: inline-block;
+    width: auto;
+    margin-top: 0;
+    padding: 10px 18px;
+    font-size: 14.5px;
+}
+
+/* ==========================================================
+   PESAN
+   ========================================================== */
+.message {
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.message.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid rgba(76, 175, 80, .35);
+}
+
+.message.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid rgba(229, 83, 70, .35);
+}
+
+.empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 0;
+}
+
+.muted {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* ==========================================================
+   KARTU KELAS (mendatar: teks di kiri, gambar 3:2 di kanan)
+   ========================================================== */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Tinggi kartu minimal 380px dan foto selebar 304px = rasio 4:5.
+   Foto dengan rasio lain dipotong otomatis (object-fit: cover). */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: row;
+    min-height: 380px;
+    overflow: hidden;
+}
+
+.card-body {
+    flex: 1;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.card-image {
+    flex: 0 0 304px;
+    background: var(--input-bg);
+}
+
+.card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.card h2 {
+    font-size: 21px;
+    margin: 0;
+    color: var(--gold-light);
+}
+
+/* Deskripsi selalu setinggi 3 baris; sisanya dipotong */
+.card .desc {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+    height: 4.5em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Tempat tombol "Baca selengkapnya" (tinggi tetap agar kartu seragam) */
+.baca-wrap {
+    height: 26px;
+    margin-bottom: 6px;
+}
+
+.baca-lagi {
+    background: none;
+    border: 0;
+    padding: 4px 0;
+    color: var(--gold-light);
+    font-size: 13.5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.baca-lagi[hidden] {
+    display: none;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14.5px;
+    margin-bottom: 6px;
+}
+
+.info span:first-child {
+    color: var(--text-muted);
+}
+
+.info span:last-child {
+    text-align: right;
+}
+
+.price {
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.slot-habis {
+    color: var(--error-text);
+    font-weight: bold;
+}
+
+.badge {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.badge-success {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid rgba(76, 175, 80, .35);
+}
+
+.badge-admin {
+    background: var(--gold-gradient);
+    color: var(--on-primary);
+}
+
+.badge-user {
+    background: rgba(255, 255, 255, .1);
+    color: var(--text-muted);
+}
+
+/* ==========================================================
+   PILIH KELAS & RINGKASAN TOTAL BAYAR
+   ========================================================== */
+.pilih {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.pilih:hover {
+    background: var(--hover);
+}
+
+.pilih input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--gold);
+    cursor: pointer;
+}
+
+.card.terpilih {
+    outline: 2px solid var(--gold);
+}
+
+.spacer-bawah {
+    height: 90px;
+}
+
+.ringkasan {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    background: var(--card-bg);
+    border-top: 2px solid var(--gold);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, .6);
+}
+
+/* Halaman yang punya sidebar (body class="ada-sidebar"): bar tidak menimpa sidebar */
+.ada-sidebar .ringkasan {
+    left: var(--lebar-sidebar);
+}
+
+.ringkasan[hidden] {
+    display: none;
+}
+
+.ringkasan-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 14.5px;
+}
+
+.ringkasan-info b {
+    font-size: 18px;
+    color: var(--gold-light);
+}
+
+/* ==========================================================
+   POP UP KONFIRMASI
+   ========================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .75);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-strong);
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 28px;
+}
+
+.modal-box h3 {
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: var(--gold-light);
+}
+
+.modal-box p {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin: 0 0 6px;
+    white-space: pre-line;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-actions .btn {
+    margin-top: 0;
+}
+
+.modal-list {
+    display: none;
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.modal-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+}
+
+.modal-list li span:last-child {
+    font-weight: bold;
+    color: var(--gold);
+    white-space: nowrap;
+}
+
+/* ==========================================================
+   PANEL, FORM, TABEL (admin dan profil)
+   ========================================================== */
+.panel {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.panel h2 {
+    font-size: 18px;
+    margin: 0 0 16px;
+    color: var(--gold-light);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    display: block;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.field input,
+.field select,
+.field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    font: inherit;
+    font-size: 14.5px;
+    background: var(--input-bg);
+    color: var(--text);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+.field textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.field .hint {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.form-actions .btn {
+    width: auto;
+    margin-top: 0;
+    padding: 10px 22px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+}
+
+table.data th,
+table.data td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+}
+
+table.data th {
+    font-size: 13px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.thumb {
+    width: 48px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+
+/* Tombol Ubah + Hapus berdampingan di baris tabel */
+.aksi-baris {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.aksi-baris form {
+    margin: 0;
+}
+
+/* ==========================================================
+   HALAMAN LOGIN / REGISTER (index.php, <body class="login-page">)
+   ========================================================== */
+.login-page .form-box {
+    width: 360px;
+    margin: 100px auto;
+    padding: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: none;
+}
+
+.login-page .form-box.active {
+    display: block;
+}
+
+.login-page h1 {
+    font-size: 34px;
+    text-align: center;
+    margin: 0 0 5px;
+    color: var(--gold-light);
+}
+
+.login-page h2 {
+    font-size: 22px;
+    text-align: center;
+    margin-top: 0;
+    color: var(--text);
+}
+
+.login-page input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    font: inherit;
+}
+
+.login-page input:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+.login-page button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 8px;
+    background: var(--gold-gradient);
+    color: var(--on-primary);
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.login-page button:hover {
+    filter: brightness(1.1);
+}
+
+.login-page p {
+    font-size: 14.5px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+}
+
+.login-page p a {
+    color: var(--gold-light);
+    text-decoration: none;
+}
+
+.login-page p a:hover {
+    text-decoration: underline;
+}
+
+.login-page .error-message {
+    padding: 12px;
+    background: var(--error-bg);
+    border-radius: 6px;
+    font-size: 16px;
+    color: var(--error-text);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-page .success-message {
+    padding: 12px;
+    background: var(--success-bg);
+    border-radius: 6px;
+    font-size: 16px;
+    color: var(--success-text);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================
+   RESPONSIF
+   ========================================================== */
+@media (max-width: 800px) {
+    /* Sidebar menjadi bar di atas halaman */
+    .app-layout,
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        padding: 16px;
+        border-right: 0;
+    }
+
+    .sidebar nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .sidebar nav a {
+        margin-bottom: 0;
+    }
+
+    .sidebar-bottom {
+        margin-top: 12px;
+    }
+
+    .app-main,
+    .admin-main {
+        padding: 20px;
+    }
+
+    .ada-sidebar .ringkasan {
+        left: 0;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    /* Kartu: gambar pindah ke atas, teks di bawah */
+    .card {
+        flex-direction: column-reverse;
+        min-height: 0;
+    }
+
+    /* Foto 4:5 selebar layar terlalu tinggi di HP, jadi dipotong lebih lebar */
+    .card-image {
+        flex: none;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 500px) {
+    .login-page .form-box {
+        width: 80%;
+        margin: 50px auto;
+    }
+}
